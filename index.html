@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FFC107" />
+  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
+  <link rel="manifest" href="manifest.json">
+  <title>OptimaBiz - Aksi Nyata, Bukan Teori</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --yellow: #FFC107;
+      --yellow-dark: #e6a800;
+      --yellow-light: #FFD54F;
+      --dark: #1A1A1A;
+      --dark2: #242424;
+      --dark3: #2e2e2e;
+      --card: #1e1e1e;
+      --border: rgba(255,193,7,0.15);
+      --text: #f0f0f0;
+      --text-muted: #888;
+      --green: #10B981;
+      --red: #EF4444;
+      --orange: #F59E0B;
+      --blue: #3B82F6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ========== SCREENS ========== */
+    .screen {
+      display: none !important;
+      min-height: 100vh;
+    }
+    .screen.active {
+      display: flex !important;
+      flex-direction: column;
+    }
+
+    /* ========== LANDING ========== */
+    #screen-landing {
+      background: var(--dark);
+      padding-bottom: 0;
+      flex-direction: column;
+    }
+
+    .landing-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(26,26,26,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 22px;
+      color: var(--yellow);
+      letter-spacing: -0.5px;
+    }
+
+    .brand span { color: var(--text); }
+
+    .nav-btns { display: flex; gap: 10px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 10px 20px; border: none; border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--yellow); color: var(--yellow); }
+
+    .btn-yellow { background: var(--yellow); color: var(--dark); }
+    .btn-yellow:hover { background: var(--yellow-dark); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(255,193,7,0.3); }
+    .btn-yellow:active { transform: translateY(0); }
+
+    .btn-outline { background: transparent; border: 2px solid var(--yellow); color: var(--yellow); }
+    .btn-outline:hover { background: var(--yellow); color: var(--dark); }
+
+    .btn-danger { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .btn-danger:hover { background: var(--red); color: white; }
+
+    .btn-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+    .btn-green:hover { background: var(--green); color: white; }
+
+    .btn-sm { padding: 7px 14px; font-size: 13px; }
+    .btn-lg { padding: 14px 32px; font-size: 16px; }
+
+    /* Hero */
+    .hero {
+      padding: 64px 24px 48px;
+      text-align: center;
+      max-width: 720px; margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-block; background: rgba(255,193,7,0.12);
+      color: var(--yellow); border: 1px solid rgba(255,193,7,0.3);
+      padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600;
+      margin-bottom: 24px; letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(32px, 8vw, 56px); line-height: 1.1;
+      letter-spacing: -1px; margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal; color: var(--yellow);
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 17px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto;
+    }
+
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex; gap: 0; border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); margin: 0;
+    }
+
+    .stat-block {
+      flex: 1; text-align: center; padding: 24px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-block:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800;
+      color: var(--yellow); display: block;
+    }
+
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Features */
+    .section { padding: 56px 24px; max-width: 800px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 2px;
+      color: var(--yellow); text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800; line-height: 1.2; margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+
+    .feature-icon {
+      width: 48px; height: 48px; background: rgba(255,193,7,0.1);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 16px;
+    }
+
+    .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* How it works */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0; border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--yellow); color: var(--dark);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
+    }
+
+    .step-content h3 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 6px; }
+    .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* CTA section */
+    .cta-section {
+      margin: 0 24px 48px;
+      background: linear-gradient(135deg, rgba(255,193,7,0.12), rgba(255,193,7,0.04));
+      border: 1px solid rgba(255,193,7,0.3); border-radius: 20px;
+      padding: 48px 32px; text-align: center;
+    }
+
+    .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { color: var(--text-muted); margin-bottom: 28px; }
+
+    /* ========== AUTH ========== */
+    /* ========== AUTH PAGES ========== */
+    #screen-login, #screen-signup {
+      padding: 0;
+    }
+
+    .auth-page {
+      display: flex; min-height: 100vh; flex-direction: column;
+    }
+
+    /* Top nav bar auth */
+    .auth-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 28px;
+      position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    }
+
+    /* Left panel — branding/illustration (hidden on small screens) */
+    .auth-split {
+      display: flex; flex: 1; min-height: 0;
+    }
+
+    .auth-left {
+      flex: 1; background: linear-gradient(145deg, #1e1a0e 0%, #1A1A1A 50%, #1a1e0e 100%);
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 48px; position: relative; overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .auth-left { display: flex; }
+    }
+
+    .auth-left::before {
+      content: ''; position: absolute; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,193,7,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .auth-left-content { position: relative; z-index: 1; max-width: 360px; }
+
+    .auth-left-logo { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--yellow); margin-bottom: 32px; }
+    .auth-left-logo span { color: var(--text); }
+
+    .auth-left h2 {
+      font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+
+    .auth-left h2 em { font-style: normal; color: var(--yellow); }
+
+    .auth-left p { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; }
+
+    .auth-perks { display: flex; flex-direction: column; gap: 14px; }
+
+    .auth-perk {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .auth-perk-icon {
+      width: 36px; height: 36px; background: rgba(255,193,7,0.12);
+      border: 1px solid rgba(255,193,7,0.2); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .auth-perk-text { font-size: 14px; color: var(--text-muted); }
+    .auth-perk-text strong { color: var(--text); font-weight: 600; }
+
+    /* Right panel — form */
+    .auth-right {
+      flex: 1; display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      padding: 40px 24px; background: var(--dark);
+      min-height: 100vh; overflow-y: auto;
+    }
+
+    .auth-right-inner { width: 100%; max-width: 400px; }
+
+    /* Mobile brand (shown only when left panel hidden) */
+    .auth-mobile-brand {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    @media (min-width: 768px) {
+      .auth-mobile-brand { display: none; }
+    }
+
+    .auth-mobile-brand .brand { font-size: 26px; }
+
+    .auth-form-title {
+      font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .auth-form-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; }
+
+    .form-group { margin-bottom: 16px; }
+
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
+
+    input[type="text"], input[type="email"], input[type="password"],
+    input[type="number"], select, textarea {
+      width: 100%; padding: 13px 16px;
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: 12px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(255,193,7,0.1);
+    }
+
+    select option { background: var(--dark2); }
+
+    .auth-submit-btn {
+      width: 100%; padding: 14px; margin-top: 8px;
+      background: var(--yellow); color: var(--dark);
+      border: none; border-radius: 12px; font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 800; cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .auth-submit-btn:hover { background: var(--yellow-dark); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(255,193,7,0.3); }
+    .auth-submit-btn:active { transform: translateY(0); }
+
+    .auth-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; color: var(--text-muted); font-size: 13px;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .auth-switch {
+      text-align: center; font-size: 14px; color: var(--text-muted); margin-top: 20px;
+    }
+    .auth-switch a { color: var(--yellow); cursor: pointer; font-weight: 600; text-decoration: none; }
+    .auth-switch a:hover { text-decoration: underline; }
+
+    .auth-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-muted); cursor: pointer;
+      margin-top: 16px; background: none; border: none;
+      font-family: 'DM Sans', sans-serif; padding: 0;
+    }
+    .auth-back:hover { color: var(--yellow); }
+
+    .demo-hint {
+      background: rgba(255,193,7,0.07); border: 1px solid rgba(255,193,7,0.2);
+      border-radius: 10px; padding: 12px 16px; margin-bottom: 20px;
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    }
+    .demo-hint strong { color: var(--yellow); }
+
+    /* ========== APP LAYOUT ========== */
+    /* app screen uses base .screen rules */
+
+    .app-header {
+      background: var(--dark2); border-bottom: 1px solid var(--border);
+      padding: 16px 20px; position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .app-header .brand { font-size: 18px; }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    .user-badge {
+      background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.2);
+      padding: 6px 12px; border-radius: 8px;
+      font-size: 13px; color: var(--yellow); font-weight: 600;
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--dark2); border-top: 1px solid var(--border);
+      display: flex; z-index: 200;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .nav-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 4px; padding: 12px 8px;
+      cursor: pointer; transition: all 0.2s;
+      border: none; background: none; color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
+    }
+
+    .nav-item .nav-icon { font-size: 20px; transition: transform 0.2s; }
+    .nav-item.active { color: var(--yellow); }
+    .nav-item.active .nav-icon { transform: translateY(-2px); }
+    .nav-item:hover { color: var(--yellow); }
+
+    /* App content */
+    .app-content { padding: 20px; max-width: 800px; margin: 0 auto; }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ========== DASHBOARD ========== */
+    .page-title {
+      font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .page-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; margin-bottom: 24px;
+    }
+
+    @media (min-width: 600px) {
+      .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .metric-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px; transition: all 0.2s;
+    }
+
+    .metric-card:hover { border-color: var(--yellow); }
+
+    .metric-icon { font-size: 22px; margin-bottom: 10px; }
+    .metric-value {
+      font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .metric-label { font-size: 12px; color: var(--text-muted); }
+
+    .metric-card.yellow .metric-value { color: var(--yellow); }
+    .metric-card.green .metric-value { color: var(--green); }
+    .metric-card.blue .metric-value { color: var(--blue); }
+    .metric-card.orange .metric-value { color: var(--orange); }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px; margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+    }
+
+    /* Top products list */
+    .product-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+
+    .product-row:last-child { border-bottom: none; }
+
+    .product-rank {
+      width: 24px; height: 24px; background: rgba(255,193,7,0.15);
+      color: var(--yellow); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+
+    .product-info { flex: 1; min-width: 0; }
+    .product-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .product-cat { font-size: 12px; color: var(--text-muted); }
+
+    .margin-badge {
+      padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .margin-high { background: rgba(16,185,129,0.15); color: var(--green); }
+    .margin-mid { background: rgba(245,158,11,0.15); color: var(--orange); }
+    .margin-low { background: rgba(239,68,68,0.15); color: var(--red); }
+
+    /* Alert */
+    .alert-item {
+      display: flex; gap: 12px; padding: 10px;
+      background: rgba(239,68,68,0.07); border-radius: 10px;
+      margin-bottom: 8px; align-items: center;
+    }
+
+    .alert-item .alert-icon { font-size: 18px; flex-shrink: 0; }
+    .alert-item .alert-text { font-size: 13px; }
+    .alert-item .alert-name { font-weight: 600; }
+
+    /* ========== PRODUCTS PAGE ========== */
+    .toolbar {
+      display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+    }
+
+    .toolbar input { flex: 1; min-width: 160px; }
+
+    .products-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .prod-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px;
+      display: flex; gap: 14px; align-items: center;
+      transition: all 0.2s;
+    }
+
+    .prod-card:hover { border-color: rgba(255,193,7,0.4); }
+
+    .prod-emoji {
+      width: 48px; height: 48px; background: rgba(255,193,7,0.1);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 24px; flex-shrink: 0;
+    }
+
+    .prod-details { flex: 1; min-width: 0; }
+    .prod-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .prod-meta { font-size: 12px; color: var(--text-muted); }
+
+    .prod-right { text-align: right; flex-shrink: 0; }
+    .prod-margin { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+    .prod-actions { display: flex; gap: 6px; margin-top: 8px; justify-content: flex-end; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px; width: 100%; max-width: 460px;
+      max-height: 90vh; overflow-y: auto; animation: modalIn 0.2s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .modal-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+    .modal-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; line-height: 1; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ========== ANALYSIS PAGE ========== */
+    .analysis-table { width: 100%; border-collapse: collapse; }
+
+    .analysis-table th {
+      text-align: left; padding: 10px 12px; font-size: 12px;
+      color: var(--text-muted); border-bottom: 1px solid var(--border);
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .analysis-table td {
+      padding: 12px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .analysis-table tr:last-child td { border-bottom: none; }
+    .analysis-table tr:hover td { background: rgba(255,193,7,0.03); }
+
+    /* Progress bar for margin */
+    .margin-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .margin-bar-bg { flex: 1; height: 6px; background: var(--dark3); border-radius: 3px; overflow: hidden; }
+    .margin-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+    /* ========== AI STRATEGY PAGE ========== */
+    .rec-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px; margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+
+    .rec-card:hover { border-color: rgba(255,193,7,0.3); }
+    .rec-card.done { opacity: 0.5; }
+
+    .rec-header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+
+    .rec-type-badge {
+      padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+    }
+
+    .rec-pricing { background: rgba(59,130,246,0.15); color: var(--blue); }
+    .rec-inventory { background: rgba(245,158,11,0.15); color: var(--orange); }
+    .rec-focus { background: rgba(16,185,129,0.15); color: var(--green); }
+    .rec-bundle { background: rgba(139,92,246,0.15); color: #a78bfa; }
+
+    .rec-title { font-weight: 700; font-size: 15px; line-height: 1.4; }
+    .rec-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px; }
+
+    .rec-impact {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(16,185,129,0.1); color: var(--green);
+      padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .rec-actions { display: flex; gap: 8px; }
+
+    /* Loading state */
+    .loading {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 40px; color: var(--text-muted); font-size: 15px;
+    }
+
+    .spinner {
+      width: 20px; height: 20px; border: 2px solid var(--border);
+      border-top-color: var(--yellow); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center; padding: 60px 20px; color: var(--text-muted);
+    }
+
+    .empty-icon { font-size: 56px; margin-bottom: 16px; opacity: 0.4; }
+    .empty-state h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .empty-state p { font-size: 14px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--dark3); border: 1px solid var(--border);
+      padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      z-index: 999; transition: all 0.3s; opacity: 0; pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { border-color: var(--green); color: var(--green); }
+    .toast.error { border-color: var(--red); color: var(--red); }
+
+    /* Chip tabs */
+    .chip-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px; }
+
+    .chip {
+      padding: 8px 16px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 100px; cursor: pointer; font-size: 13px; font-weight: 500;
+      white-space: nowrap; transition: all 0.2s; color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .chip.active { background: var(--yellow); border-color: var(--yellow); color: var(--dark); font-weight: 700; }
+    .chip:hover:not(.active) { border-color: var(--yellow); color: var(--yellow); }
+
+    /* Category emoji map */
+    .cat-emoji { display: inline; }
+
+    /* Confirm dialog */
+    .confirm-overlay {
+      display: none; position: fixed; inset: 0; z-index: 600;
+      background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px;
+    }
+
+    .confirm-overlay.open { display: flex; }
+
+    .confirm-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px; max-width: 340px; width: 100%; text-align: center;
+    }
+
+    .confirm-box h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 10px; }
+    .confirm-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .confirm-btns { display: flex; gap: 10px; }
+    .confirm-btns .btn { flex: 1; }
+
+    /* AI streaming text */
+    .ai-typing::after {
+      content: '|'; animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Checklist items */
+    .check-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px; border-radius: 10px; margin-bottom: 8px;
+      background: var(--dark3); cursor: pointer; transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .check-item:hover { border-color: var(--border); }
+    .check-item.checked { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.25); }
+    .check-item.checked .check-text { text-decoration: line-through; color: var(--text-muted); }
+    .check-box {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid var(--border); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; transition: all 0.2s;
+    }
+    .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+    .check-text { font-size: 14px; line-height: 1.5; padding-top: 2px; }
+    .check-badge {
+      margin-left: auto; padding: 2px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 2px;
+    }
+    .cb-high { background: rgba(239,68,68,0.15); color: var(--red); }
+    .cb-med  { background: rgba(245,158,11,0.15); color: var(--orange); }
+    .cb-low  { background: rgba(16,185,129,0.15); color: var(--green); }
+
+    /* Tip cards */
+    .tip-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px; margin-bottom: 12px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .tip-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+    .tip-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .tip-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .tip-action {
+      display: inline-block; margin-top: 8px;
+      background: rgba(255,193,7,0.12); color: var(--yellow);
+      padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 30px; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* AI Response area */
+    .ai-response {
+      background: var(--dark3); border-radius: 10px; padding: 16px;
+      font-size: 14px; line-height: 1.7; color: var(--text);
+      white-space: pre-wrap; min-height: 60px;
+    }
+
+    /* Section divider */
+    .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+    /* Profile */
+    .profile-section { margin-bottom: 24px; }
+    .profile-header {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 24px; margin-bottom: 16px;
+    }
+
+    .profile-avatar {
+      width: 60px; height: 60px; background: rgba(255,193,7,0.15);
+      border: 2px solid var(--yellow); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; flex-shrink: 0;
+    }
+
+    .profile-info h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; }
+    .profile-info p { font-size: 14px; color: var(--text-muted); }
+    .profile-plan { margin-top: 8px; display: inline-block; }
+
+    .plan-badge {
+      background: rgba(255,193,7,0.15); color: var(--yellow);
+      border: 1px solid rgba(255,193,7,0.3); padding: 4px 12px;
+      border-radius: 6px; font-size: 12px; font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===================== LANDING PAGE ===================== -->
+<div id="screen-landing" class="screen active">
+  <nav class="landing-nav">
+    <div class="brand">Optima<span>Biz</span></div>
+    <div class="nav-btns">
+      <button class="btn btn-ghost" onclick="showScreen('login')">Masuk</button>
+      <button class="btn btn-yellow" onclick="showScreen('signup')">Mulai Gratis</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-tag">⚡ Real-Action Tool untuk UMKM</div>
+    <h1>Aksi Nyata,<br><em>Bukan Teori</em></h1>
+    <p>Ubah data produkmu menjadi strategi profit yang bisa langsung dieksekusi. Kelola inventaris, analisis margin, dan dapatkan rekomendasi AI yang konkret.</p>
+    <div class="hero-btns">
+      <button class="btn btn-yellow btn-lg" onclick="showScreen('signup')">🚀 Gaspol Sekarang</button>
+      <button class="btn btn-ghost btn-lg" onclick="showScreen('login')">Sudah punya akun?</button>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-block">
+      <span class="stat-number">200+</span>
+      <div class="stat-label">UMKM Aktif</div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-number">50K+</span>
+      <div class="stat-label">Produk Dikelola</div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-number">99.9%</span>
+      <div class="stat-label">Uptime</div>
+    </div>
+    <div class="stat-block">
+      <span class="stat-number">Free</span>
+      <div class="stat-label">Mulai Gratis</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Fitur Unggulan</div>
+    <div class="section-title">Semua yang kamu butuhkan<br>untuk scale up profit</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Kelola Produk</h3>
+        <p>Tambah, edit, hapus produk lengkap dengan harga modal, harga jual, stok, dan kategori.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analisis Margin</h3>
+        <p>Hitung margin otomatis tiap produk. Identifikasi mana yang paling menguntungkan.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Strategi AI</h3>
+        <p>Dapatkan rekomendasi pricing, inventory, dan fokus produk berbasis data nyata kamu.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Dashboard Cuan</h3>
+        <p>Overview real-time nilai inventaris, rata-rata margin, dan alert stok rendah.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Cara Kerja</div>
+    <div class="section-title">3 langkah ke profit lebih besar</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Input Data Produkmu</h3>
+          <p>Masukkan nama produk, harga modal, harga jual, dan stok. Beres dalam hitungan detik.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Lihat Analisis Margin</h3>
+          <p>OptimaBiz otomatis hitung margin semua produk dan tunjukkan mana yang perlu dioptimasi.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Eksekusi Strategi AI</h3>
+          <p>AI kami beri rekomendasi konkret: naikkan harga ini, fokus ke produk itu, bundle yang ini.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Siap gaspol profit bisnismu?</h2>
+    <p>Daftar gratis sekarang. Tidak perlu kartu kredit.</p>
+    <button class="btn btn-yellow btn-lg" onclick="showScreen('signup')">Mulai Sekarang — Gratis 🚀</button>
+  </div>
+</div>
+
+<!-- ===================== LOGIN ===================== -->
+<div id="screen-login" class="screen">
+  <div class="auth-split">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <div class="auth-left-logo">Optima<span>Biz</span></div>
+        <h2>Selamat datang<br>kembali <em>👋</em></h2>
+        <p>Masuk dan kelola bisnis UMKM-mu. Data produk, analisis margin, dan strategi profit kamu sudah menunggu.</p>
+        <div class="auth-perks">
+          <div class="auth-perk">
+            <div class="auth-perk-icon">📊</div>
+            <div class="auth-perk-text"><strong>Dashboard real-time</strong> — nilai inventaris & margin sekilas pandang</div>
+          </div>
+          <div class="auth-perk">
+            <div class="auth-perk-icon">🎯</div>
+            <div class="auth-perk-text"><strong>Strategi otomatis</strong> — rekomendasi aksi berdasarkan data nyata</div>
+          </div>
+          <div class="auth-perk">
+            <div class="auth-perk-icon">🧮</div>
+            <div class="auth-perk-text"><strong>Kalkulator what-if</strong> — simulasi perubahan harga sebelum eksekusi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="auth-right">
+      <div class="auth-right-inner">
+
+        <div class="auth-mobile-brand">
+          <div class="brand">Optima<span>Biz</span></div>
+        </div>
+
+        <div class="auth-form-title">Masuk ke Akun</div>
+        <div class="auth-form-sub">Belum punya akun? <a onclick="showScreen('signup')" style="color:var(--yellow);cursor:pointer;font-weight:600">Daftar gratis →</a></div>
+
+        <div class="demo-hint">
+          🚀 <strong>Coba Demo:</strong> gunakan email <strong>demo@optimabiz.com</strong> dan password <strong>demo123</strong>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="email@umkm.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••">
+        </div>
+
+        <button class="auth-submit-btn" onclick="doLogin()">Masuk Sekarang →</button>
+
+        <div class="auth-switch">
+          Belum punya akun? <a onclick="showScreen('signup')">Daftar gratis sekarang</a>
+        </div>
+
+        <div style="text-align:center">
+          <button class="auth-back" onclick="showScreen('landing')">← Kembali ke beranda</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SIGNUP ===================== -->
+<div id="screen-signup" class="screen">
+  <div class="auth-split">
+
+    <!-- LEFT PANEL -->
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <div class="auth-left-logo">Optima<span>Biz</span></div>
+        <h2>Ubah data jadi<br><em>aksi nyata 🚀</em></h2>
+        <p>Bergabung bersama 200+ pemilik UMKM yang sudah scale up profit mereka dengan OptimaBiz. Gratis, selamanya.</p>
+        <div class="auth-perks">
+          <div class="auth-perk">
+            <div class="auth-perk-icon">📦</div>
+            <div class="auth-perk-text"><strong>Kelola produk</strong> — harga modal, harga jual, stok, semua di satu tempat</div>
+          </div>
+          <div class="auth-perk">
+            <div class="auth-perk-icon">📈</div>
+            <div class="auth-perk-text"><strong>Analisis margin</strong> — tahu persis produk mana yang paling cuan</div>
+          </div>
+          <div class="auth-perk">
+            <div class="auth-perk-icon">💡</div>
+            <div class="auth-perk-text"><strong>Tips & strategi otomatis</strong> — langsung bisa dieksekusi, bukan teori</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="auth-right">
+      <div class="auth-right-inner">
+
+        <div class="auth-mobile-brand">
+          <div class="brand">Optima<span>Biz</span></div>
+        </div>
+
+        <div class="auth-form-title">Buat Akun Gratis</div>
+        <div class="auth-form-sub">Sudah punya akun? <a onclick="showScreen('login')" style="color:var(--yellow);cursor:pointer;font-weight:600">Masuk di sini →</a></div>
+
+        <div class="form-group">
+          <label>Nama UMKM / Toko</label>
+          <input type="text" id="signupBizName" placeholder="Contoh: Toko Kopi Kami">
+        </div>
+        <div class="form-group">
+          <label>Kategori Bisnis</label>
+          <select id="signupCategory">
+            <option value="">— Pilih kategori —</option>
+            <option value="F&B">☕ F&B (Makanan & Minuman)</option>
+            <option value="Fashion">👗 Fashion & Pakaian</option>
+            <option value="Elektronik">📱 Elektronik</option>
+            <option value="Kecantikan">💄 Kecantikan & Kesehatan</option>
+            <option value="Kerajinan">🎨 Kerajinan Tangan</option>
+            <option value="Lainnya">📦 Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="signupEmail" placeholder="email@umkm.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="signupPassword" placeholder="Min. 6 karakter">
+        </div>
+
+        <button class="auth-submit-btn" onclick="doSignup()">Daftar Sekarang — Gratis 🚀</button>
+
+        <div class="auth-switch">
+          Sudah punya akun? <a onclick="showScreen('login')">Masuk di sini</a>
+        </div>
+
+        <div style="text-align:center">
+          <button class="auth-back" onclick="showScreen('landing')">← Kembali ke beranda</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="screen-app" class="screen">
+  <header class="app-header">
+    <div class="brand">Optima<span>Biz</span></div>
+    <div class="header-right">
+      <div class="user-badge" id="userBadge">👤 User</div>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()">Keluar</button>
+    </div>
+  </header>
+
+  <div class="app-content">
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-title">Dashboard Cuan 💰</div>
+      <div class="page-sub" id="dashGreeting">Selamat datang kembali!</div>
+
+      <div class="metrics-grid" id="metricsGrid">
+        <div class="metric-card yellow">
+          <div class="metric-icon">📦</div>
+          <div class="metric-value" id="m-products">0</div>
+          <div class="metric-label">Total Produk</div>
+        </div>
+        <div class="metric-card blue">
+          <div class="metric-icon">🏬</div>
+          <div class="metric-value" id="m-stock">0</div>
+          <div class="metric-label">Total Stok</div>
+        </div>
+        <div class="metric-card green">
+          <div class="metric-icon">💵</div>
+          <div class="metric-value" id="m-value">Rp 0</div>
+          <div class="metric-label">Nilai Inventaris</div>
+        </div>
+        <div class="metric-card orange">
+          <div class="metric-icon">📈</div>
+          <div class="metric-value" id="m-margin">0%</div>
+          <div class="metric-label">Avg Margin</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">🏆 Top Produk (by Margin)</div>
+          <button class="btn btn-ghost btn-sm" onclick="switchPage('products')">Lihat Semua</button>
+        </div>
+        <div id="topProductsList">
+          <div class="empty-state" style="padding:30px">
+            <div class="empty-icon" style="font-size:36px">📦</div>
+            <p>Belum ada produk. Tambahkan produk dulu!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">⚠️ Alert Stok Rendah</div>
+        </div>
+        <div id="stockAlerts">
+          <div style="font-size:13px;color:var(--text-muted);padding:8px 0">Semua stok aman ✅</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="page-products" class="page">
+      <div class="page-title">Kelola Produk 📦</div>
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder="🔍 Cari produk..." oninput="renderProducts()">
+        <button class="btn btn-yellow" onclick="openProductModal()">+ Tambah Produk</button>
+      </div>
+      <div class="chip-tabs" id="categoryFilter">
+        <div class="chip active" onclick="filterCategory('all', this)">Semua</div>
+      </div>
+      <div id="productsList" class="products-list"></div>
+    </div>
+
+    <!-- ANALYSIS -->
+    <div id="page-analysis" class="page">
+      <div class="page-title">Analisis Margin 📊</div>
+      <div class="page-sub">Identifikasi produk paling menguntungkan</div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Distribusi Margin</div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+          <div style="flex:1;min-width:100px;background:rgba(16,185,129,0.1);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--green)" id="a-high">0</div>
+            <div style="font-size:12px;color:var(--text-muted)">Margin Tinggi (&gt;60%)</div>
+          </div>
+          <div style="flex:1;min-width:100px;background:rgba(245,158,11,0.1);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--orange)" id="a-mid">0</div>
+            <div style="font-size:12px;color:var(--text-muted)">Margin Sedang (30-60%)</div>
+          </div>
+          <div style="flex:1;min-width:100px;background:rgba(239,68,68,0.1);border-radius:10px;padding:16px;text-align:center">
+            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--red)" id="a-low">0</div>
+            <div style="font-size:12px;color:var(--text-muted)">Margin Rendah (&lt;30%)</div>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="analysis-table" id="analysisTable">
+            <thead>
+              <tr>
+                <th>Produk</th>
+                <th>H. Modal</th>
+                <th>H. Jual</th>
+                <th>Margin</th>
+                <th>Rekomendasi</th>
+              </tr>
+            </thead>
+            <tbody id="analysisTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI STRATEGY -->
+    <div id="page-strategy" class="page">
+      <div class="page-title">Pusat Strategi 🎯</div>
+      <div class="page-sub">Tools aksi nyata berbasis data bisnismu</div>
+
+      <!-- Tab Navigator -->
+      <div class="chip-tabs" id="strategyTabs">
+        <div class="chip active" onclick="switchStrategyTab('tips', this)">💡 Tips Otomatis</div>
+        <div class="chip" onclick="switchStrategyTab('whatif', this)">🧮 Kalkulator</div>
+        <div class="chip" onclick="switchStrategyTab('checklist', this)">✅ Aksi Harian</div>
+        <div class="chip" onclick="switchStrategyTab('recs', this)">⚡ Rekomendasi</div>
+      </div>
+
+      <!-- TAB 1: TIPS OTOMATIS -->
+      <div id="stab-tips" class="stab">
+        <div id="tipsList"></div>
+      </div>
+
+      <!-- TAB 2: KALKULATOR WHAT-IF -->
+      <div id="stab-whatif" class="stab" style="display:none">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:16px">🧮 Simulasi: Kalau Harga Naik/Turun</div>
+          <div class="form-group">
+            <label>Pilih Produk</label>
+            <select id="wif-product" onchange="updateWhatIf()">
+              <option value="">— Pilih produk —</option>
+            </select>
+          </div>
+          <div id="wif-current" style="display:none">
+            <div style="background:var(--dark3);border-radius:10px;padding:14px;margin-bottom:16px">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Data Sekarang</div>
+              <div style="display:flex;gap:16px;flex-wrap:wrap">
+                <div><div style="font-weight:700" id="wif-cur-cost">-</div><div style="font-size:11px;color:var(--text-muted)">Harga Modal</div></div>
+                <div><div style="font-weight:700" id="wif-cur-sell">-</div><div style="font-size:11px;color:var(--text-muted)">Harga Jual</div></div>
+                <div><div style="font-weight:700;color:var(--yellow)" id="wif-cur-margin">-</div><div style="font-size:11px;color:var(--text-muted)">Margin Skrg</div></div>
+                <div><div style="font-weight:700" id="wif-cur-stock">-</div><div style="font-size:11px;color:var(--text-muted)">Stok</div></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Ubah Harga Jual Menjadi (Rp)</label>
+              <input type="number" id="wif-new-sell" placeholder="Masukkan harga jual baru" oninput="calcWhatIf()">
+            </div>
+            <div class="form-group">
+              <label>Ubah Harga Modal Menjadi (Rp)</label>
+              <input type="number" id="wif-new-cost" placeholder="Masukkan harga modal baru" oninput="calcWhatIf()">
+            </div>
+            <div id="wif-result" style="display:none;background:var(--dark3);border-radius:10px;padding:16px;margin-top:4px">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">📊 Hasil Simulasi</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div style="background:var(--card);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--text-muted)">Margin Baru</div>
+                  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800" id="wif-r-mpct">-</div>
+                </div>
+                <div style="background:var(--card);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--text-muted)">Profit per Unit</div>
+                  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800" id="wif-r-munit">-</div>
+                </div>
+                <div style="background:var(--card);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--text-muted)">Total Profit Stok</div>
+                  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800" id="wif-r-total">-</div>
+                </div>
+                <div style="background:var(--card);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--text-muted)">Selisih vs Sekarang</div>
+                  <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800" id="wif-r-diff">-</div>
+                </div>
+              </div>
+              <div id="wif-verdict" style="margin-top:12px;padding:10px;border-radius:8px;font-size:13px;font-weight:600;text-align:center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: CHECKLIST AKSI HARIAN -->
+      <div id="stab-checklist" class="stab" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">✅ Aksi Harian Bisnis</div>
+            <button class="btn btn-ghost btn-sm" onclick="resetChecklist()">Reset</button>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Centang aksi yang sudah kamu lakukan hari ini:</div>
+          <div id="checklistItems"></div>
+          <div id="checklistProgress" style="margin-top:16px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px">
+              <span style="color:var(--text-muted)">Progress hari ini</span>
+              <span id="checklistPct" style="font-weight:700;color:var(--yellow)">0%</span>
+            </div>
+            <div style="height:8px;background:var(--dark3);border-radius:4px;overflow:hidden">
+              <div id="checklistBar" style="height:100%;background:var(--yellow);border-radius:4px;transition:width 0.4s ease;width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: REKOMENDASI OTOMATIS -->
+      <div id="stab-recs" class="stab" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-size:13px;color:var(--text-muted)">Berdasarkan data produkmu</div>
+          <button class="btn btn-outline btn-sm" onclick="generateRecommendations()">🔄 Refresh</button>
+        </div>
+        <div id="recommendationsList">
+          <div class="empty-state">
+            <div class="empty-icon">🤖</div>
+            <h3>Belum ada rekomendasi</h3>
+            <p>Tambahkan produk untuk mendapat rekomendasi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="page-profile" class="page">
+      <div class="page-title">Profil 👤</div>
+      <div class="profile-header">
+        <div class="profile-avatar">🏪</div>
+        <div class="profile-info">
+          <h2 id="profileBizName">Nama Bisnis</h2>
+          <p id="profileEmail">email@umkm.com</p>
+          <p id="profileCategory" style="margin-top:4px;font-size:13px;color:var(--text-muted)">Kategori</p>
+          <div class="profile-plan"><span class="plan-badge">⭐ Free Plan</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">📊 Ringkasan Bisnis</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:var(--dark3);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;color:var(--yellow)" id="p-products">0</div>
+            <div style="font-size:12px;color:var(--text-muted)">Total Produk</div>
+          </div>
+          <div style="background:var(--dark3);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:Syne,sans-serif;font-size:22px;font-weight:800;color:var(--green)" id="p-invValue">Rp 0</div>
+            <div style="font-size:12px;color:var(--text-muted)">Nilai Inventaris</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">⚙️ Edit Profil</div>
+        <div class="form-group">
+          <label>Nama UMKM</label>
+          <input type="text" id="editBizName" placeholder="Nama bisnis kamu">
+        </div>
+        <div class="form-group">
+          <label>Kategori</label>
+          <select id="editCategory">
+            <option value="F&B">☕ F&B</option>
+            <option value="Fashion">👗 Fashion</option>
+            <option value="Elektronik">📱 Elektronik</option>
+            <option value="Kecantikan">💄 Kecantikan</option>
+            <option value="Kerajinan">🎨 Kerajinan</option>
+            <option value="Lainnya">📦 Lainnya</option>
+          </select>
+        </div>
+        <button class="btn btn-yellow" onclick="saveProfile()">Simpan Perubahan</button>
+      </div>
+
+      <button class="btn btn-danger" style="width:100%;margin-top:8px" onclick="doLogout()">🚪 Keluar dari Akun</button>
+    </div>
+  </div>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" id="nav-dashboard" onclick="switchPage('dashboard')">
+      <span class="nav-icon">🏠</span>
+      <span>Dashboard</span>
+    </button>
+    <button class="nav-item" id="nav-products" onclick="switchPage('products')">
+      <span class="nav-icon">📦</span>
+      <span>Produk</span>
+    </button>
+    <button class="nav-item" id="nav-analysis" onclick="switchPage('analysis')">
+      <span class="nav-icon">📊</span>
+      <span>Analisis</span>
+    </button>
+    <button class="nav-item" id="nav-strategy" onclick="switchPage('strategy')">
+      <span class="nav-icon">🤖</span>
+      <span>AI</span>
+    </button>
+    <button class="nav-item" id="nav-profile" onclick="switchPage('profile')">
+      <span class="nav-icon">👤</span>
+      <span>Profil</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ===================== MODALS ===================== -->
+<!-- Product Modal -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Tambah Produk</div>
+      <button class="modal-close" onclick="closeProductModal()">✕</button>
+    </div>
+    <input type="hidden" id="editProductId">
+    <div class="form-group">
+      <label>Nama Produk *</label>
+      <input type="text" id="pName" placeholder="Contoh: Kopi Arabika Premium">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Kategori</label>
+        <select id="pCategory">
+          <option value="Makanan">🍱 Makanan</option>
+          <option value="Minuman">☕ Minuman</option>
+          <option value="Fashion">👗 Fashion</option>
+          <option value="Elektronik">📱 Elektronik</option>
+          <option value="Kecantikan">💄 Kecantikan</option>
+          <option value="Kerajinan">🎨 Kerajinan</option>
+          <option value="Lainnya">📦 Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Stok Awal</label>
+        <input type="number" id="pStock" placeholder="0" min="0">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Harga Modal (Rp) *</label>
+        <input type="number" id="pCost" placeholder="5000" min="0">
+      </div>
+      <div class="form-group">
+        <label>Harga Jual (Rp) *</label>
+        <input type="number" id="pSell" placeholder="15000" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Deskripsi (opsional)</label>
+      <textarea id="pDesc" rows="2" placeholder="Deskripsi produk..." style="resize:vertical"></textarea>
+    </div>
+    <!-- Live margin preview -->
+    <div id="marginPreview" style="background:var(--dark3);border-radius:10px;padding:14px;margin-bottom:16px;display:none">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Preview Margin</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div>
+          <div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800" id="prevMarginRp">Rp 0</div>
+          <div style="font-size:11px;color:var(--text-muted)">Margin per unit</div>
+        </div>
+        <div>
+          <div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800" id="prevMarginPct">0%</div>
+          <div style="font-size:11px;color:var(--text-muted)">Persentase margin</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-ghost" style="flex:1" onclick="closeProductModal()">Batal</button>
+      <button class="btn btn-yellow" style="flex:2" onclick="saveProduct()">Simpan Produk</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="confirm-overlay" id="confirmModal">
+  <div class="confirm-box">
+    <h3>Hapus Produk?</h3>
+    <p>Produk ini akan dihapus permanen dan tidak bisa dikembalikan.</p>
+    <div class="confirm-btns">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Batal</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// STATE & STORAGE
+// ============================================================
+let currentUser = null;
+let products = [];
+let deletePendingId = null;
+let aiAbortController = null;
+
+// Safe storage - fallback ke in-memory jika localStorage diblokir (iframe/sandbox)
+const _mem = {};
+function _s(key, val) {
+  if (val === undefined) {
+    try { return localStorage.getItem(key); } catch { return _mem[key] != null ? _mem[key] : null; }
+  } else if (val === null) {
+    try { localStorage.removeItem(key); } catch {}
+    delete _mem[key];
+  } else {
+    try { localStorage.setItem(key, val); } catch {}
+    _mem[key] = val;
+  }
+}
+
+const STORAGE_USERS = 'optimabiz_users';
+const STORAGE_PRODUCTS = 'optimabiz_products';
+const STORAGE_SESSION = 'optimabiz_session';
+
+function getUsers() {
+  return JSON.parse(_s(STORAGE_USERS) || '[]');
+}
+
+function saveUsers(users) {
+  _s(STORAGE_USERS, JSON.stringify(users));
+}
+
+function loadProducts() {
+  if (!currentUser) return;
+  const all = JSON.parse(_s(STORAGE_PRODUCTS) || '{}');
+  products = all[currentUser.email] || [];
+}
+
+function saveProducts() {
+  if (!currentUser) return;
+  const all = JSON.parse(_s(STORAGE_PRODUCTS) || '{}');
+  all[currentUser.email] = products;
+  _s(STORAGE_PRODUCTS, JSON.stringify(all));
+}
+
+// ============================================================
+// SCREEN NAVIGATION
+// ============================================================
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + name);
+  if (el) {
+    el.classList.add('active');
+    // App screen needs block layout, auth/landing need flex
+    if (name === 'app') {
+      el.style.cssText = 'display:block !important';
+    } else {
+      el.style.cssText = '';
+    }
+  }
+  window.scrollTo(0, 0);
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function doSignup() {
+  const bizName = document.getElementById('signupBizName').value.trim();
+  const category = document.getElementById('signupCategory').value;
+  const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+  const password = document.getElementById('signupPassword').value;
+
+  if (!bizName || !category || !email || !password) return showToast('Semua field wajib diisi!', 'error');
+  if (password.length < 6) return showToast('Password minimal 6 karakter', 'error');
+  if (!email.includes('@')) return showToast('Format email tidak valid', 'error');
+
+  const users = getUsers();
+  if (users.find(u => u.email === email)) return showToast('Email sudah terdaftar!', 'error');
+
+  const user = { email, password, bizName, category, plan: 'free', createdAt: new Date().toISOString() };
+  users.push(user);
+  saveUsers(users);
+
+  currentUser = user;
+  _s(STORAGE_SESSION, JSON.stringify(user));
+  initApp();
+  showToast('Akun berhasil dibuat! 🎉', 'success');
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const password = document.getElementById('loginPassword').value;
+
+  if (!email || !password) return showToast('Email dan password wajib diisi!', 'error');
+
+  // Demo shortcut
+  if (email === 'demo@optimabiz.com' && password === 'demo123') {
+    currentUser = {
+      email: 'demo@optimabiz.com',
+      bizName: 'Toko Demo OptimaBiz',
+      category: 'F&B',
+      plan: 'free'
+    };
+    // Pre-load demo products if empty
+    const all = JSON.parse(_s(STORAGE_PRODUCTS) || '{}');
+    if (!all[currentUser.email]) {
+      all[currentUser.email] = getDemoProducts();
+      _s(STORAGE_PRODUCTS, JSON.stringify(all));
+    }
+    _s(STORAGE_SESSION, JSON.stringify(currentUser));
+    initApp();
+    showToast('Selamat datang di Demo! 🚀', 'success');
+    return;
+  }
+
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.password === password);
+  if (!user) return showToast('Email atau password salah!', 'error');
+
+  currentUser = user;
+  _s(STORAGE_SESSION, JSON.stringify(user));
+  initApp();
+  showToast('Selamat datang kembali! 👋', 'success');
+}
+
+function doLogout() {
+  currentUser = null;
+  products = [];
+  _s(STORAGE_SESSION, null);
+  showScreen('landing');
+  showToast('Berhasil keluar', 'success');
+}
+
+function getDemoProducts() {
+  return [
+    { id: 1, name: 'Kopi Arabika Premium', category: 'Minuman', costPrice: 5000, sellingPrice: 15000, stock: 100, description: 'Kopi arabika pilihan', createdAt: new Date().toISOString() },
+    { id: 2, name: 'Teh Hijau Matcha', category: 'Minuman', costPrice: 3000, sellingPrice: 12000, stock: 80, description: '', createdAt: new Date().toISOString() },
+    { id: 3, name: 'Croissant Butter', category: 'Makanan', costPrice: 8000, sellingPrice: 18000, stock: 30, description: '', createdAt: new Date().toISOString() },
+    { id: 4, name: 'Es Teh Manis', category: 'Minuman', costPrice: 1500, sellingPrice: 5000, stock: 5, description: '', createdAt: new Date().toISOString() },
+    { id: 5, name: 'Roti Bakar Coklat', category: 'Makanan', costPrice: 6000, sellingPrice: 14000, stock: 25, description: '', createdAt: new Date().toISOString() },
+  ];
+}
+
+// ============================================================
+// APP INIT
+// ============================================================
+function initApp() {
+  loadProducts();
+  showScreen('app');
+  // Force block display for app screen
+  const appEl = document.getElementById('screen-app');
+  if (appEl) appEl.style.display = 'block';
+  updateAppHeader();
+  updateProfile();
+  renderDashboard();
+  renderProducts();
+  renderAnalysis();
+  generateRecommendations();
+  renderTips();
+}
+
+function updateAppHeader() {
+  if (!currentUser) return;
+  document.getElementById('userBadge').textContent = '🏪 ' + (currentUser.bizName || currentUser.email);
+  document.getElementById('dashGreeting').textContent = 'Halo, ' + currentUser.bizName + '! Yuk cek kondisi bisnismu hari ini.';
+}
+
+function updateProfile() {
+  if (!currentUser) return;
+  document.getElementById('profileBizName').textContent = currentUser.bizName;
+  document.getElementById('profileEmail').textContent = currentUser.email;
+  document.getElementById('profileCategory').textContent = currentUser.category;
+  document.getElementById('editBizName').value = currentUser.bizName;
+  document.getElementById('editCategory').value = currentUser.category;
+}
+
+function saveProfile() {
+  if (!currentUser) return;
+  const newName = document.getElementById('editBizName').value.trim();
+  const newCat = document.getElementById('editCategory').value;
+  if (!newName) return showToast('Nama bisnis tidak boleh kosong', 'error');
+
+  currentUser.bizName = newName;
+  currentUser.category = newCat;
+
+  const users = getUsers();
+  const idx = users.findIndex(u => u.email === currentUser.email);
+  if (idx >= 0) { users[idx] = currentUser; saveUsers(users); }
+  _s(STORAGE_SESSION, JSON.stringify(currentUser));
+
+  updateAppHeader();
+  updateProfile();
+  showToast('Profil berhasil diperbarui ✅', 'success');
+}
+
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
+function switchPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  const nav = document.getElementById('nav-' + name);
+  if (page) page.classList.add('active');
+  if (nav) nav.classList.add('active');
+
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'products') renderProducts();
+  if (name === 'analysis') renderAnalysis();
+  if (name === 'strategy') {
+    // reset to tips tab
+    document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('#strategyTabs .chip').forEach(c => c.classList.remove('active'));
+    const tipsTab = document.getElementById('stab-tips');
+    if (tipsTab) tipsTab.style.display = 'block';
+    const firstChip = document.querySelector('#strategyTabs .chip');
+    if (firstChip) firstChip.classList.add('active');
+    renderTips();
+  }
+  if (name === 'profile') {
+    updateProfile();
+    const inv = products.reduce((s, p) => s + (p.stock * p.costPrice), 0);
+    document.getElementById('p-products').textContent = products.length;
+    document.getElementById('p-invValue').textContent = formatRp(inv);
+  }
+
+  window.scrollTo(0, 0);
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard() {
+  if (!currentUser) return;
+  const totalProducts = products.length;
+  const totalStock = products.reduce((s, p) => s + (p.stock || 0), 0);
+  const invValue = products.reduce((s, p) => s + ((p.stock || 0) * (p.costPrice || 0)), 0);
+  const margins = products.map(p => p.sellingPrice > 0 ? ((p.sellingPrice - p.costPrice) / p.sellingPrice) * 100 : 0);
+  const avgMargin = margins.length > 0 ? margins.reduce((a, b) => a + b, 0) / margins.length : 0;
+
+  document.getElementById('m-products').textContent = totalProducts;
+  document.getElementById('m-stock').textContent = totalStock.toLocaleString('id-ID');
+  document.getElementById('m-value').textContent = formatRpShort(invValue);
+  document.getElementById('m-margin').textContent = avgMargin.toFixed(1) + '%';
+
+  // Top products
+  const sorted = [...products].sort((a, b) => getMarginPct(b) - getMarginPct(a)).slice(0, 5);
+  const topEl = document.getElementById('topProductsList');
+  if (sorted.length === 0) {
+    topEl.innerHTML = `<div class="empty-state" style="padding:24px"><div class="empty-icon" style="font-size:32px">📦</div><p>Belum ada produk</p></div>`;
+  } else {
+    topEl.innerHTML = sorted.map((p, i) => {
+      const mp = getMarginPct(p);
+      const cls = mp >= 60 ? 'margin-high' : mp >= 30 ? 'margin-mid' : 'margin-low';
+      return `<div class="product-row">
+        <div class="product-rank">${i + 1}</div>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-cat">${getCatEmoji(p.category)} ${p.category} · Stok: ${p.stock}</div>
+        </div>
+        <div class="margin-badge ${cls}">${mp.toFixed(1)}%</div>
+      </div>`;
+    }).join('');
+  }
+
+  // Stock alerts
+  const lowStock = products.filter(p => (p.stock || 0) <= 10);
+  const alertEl = document.getElementById('stockAlerts');
+  if (lowStock.length === 0) {
+    alertEl.innerHTML = `<div style="font-size:13px;color:var(--text-muted);padding:8px 0">Semua stok aman ✅</div>`;
+  } else {
+    alertEl.innerHTML = lowStock.map(p => `
+      <div class="alert-item">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text">
+          <div class="alert-name">${p.name}</div>
+          <div style="color:var(--text-muted)">Stok tersisa: <strong style="color:var(--red)">${p.stock} unit</strong></div>
+        </div>
+        <button class="btn btn-yellow btn-sm" onclick="openProductModal('${p.id}')">Edit</button>
+      </div>`).join('');
+  }
+}
+
+// ============================================================
+// PRODUCTS
+// ============================================================
+let currentCategoryFilter = 'all';
+
+function filterCategory(cat, el) {
+  currentCategoryFilter = cat;
+  document.querySelectorAll('#categoryFilter .chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+}
+
+function renderProducts() {
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  let list = products;
+
+  if (currentCategoryFilter !== 'all') {
+    list = list.filter(p => p.category === currentCategoryFilter);
+  }
+  if (search) {
+    list = list.filter(p => p.name.toLowerCase().includes(search) || (p.description || '').toLowerCase().includes(search));
+  }
+
+  // Update category chips
+  const cats = [...new Set(products.map(p => p.category))];
+  const filterEl = document.getElementById('categoryFilter');
+  filterEl.innerHTML = `<div class="chip ${currentCategoryFilter === 'all' ? 'active' : ''}" onclick="filterCategory('all', this)">Semua</div>`;
+  cats.forEach(c => {
+    const active = currentCategoryFilter === c ? 'active' : '';
+    filterEl.innerHTML += `<div class="chip ${active}" onclick="filterCategory('${c}', this)">${getCatEmoji(c)} ${c}</div>`;
+  });
+
+  const el = document.getElementById('productsList');
+  if (list.length === 0) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📦</div><h3>Tidak ada produk</h3><p>${products.length === 0 ? 'Mulai tambahkan produk pertamamu!' : 'Coba ubah filter pencarian.'}</p></div>`;
+    return;
+  }
+
+  el.innerHTML = list.map(p => {
+    const mp = getMarginPct(p);
+    const cls = mp >= 60 ? 'margin-high' : mp >= 30 ? 'margin-mid' : 'margin-low';
+    const marginRp = p.sellingPrice - p.costPrice;
+    return `<div class="prod-card">
+      <div class="prod-emoji">${getCatEmoji(p.category)}</div>
+      <div class="prod-details">
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-meta">${p.category} · Modal: ${formatRp(p.costPrice)} · Jual: ${formatRp(p.sellingPrice)}</div>
+        <div class="prod-meta">Stok: <strong style="color:${p.stock <= 10 ? 'var(--red)' : 'var(--text)'}">${p.stock} unit</strong></div>
+      </div>
+      <div class="prod-right">
+        <div class="prod-margin ${cls}">${mp.toFixed(1)}%</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">+${formatRp(marginRp)}</div>
+        <div class="prod-actions">
+          <button class="btn btn-ghost btn-sm" onclick="openProductModal(${p.id})">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmDelete(${p.id})">🗑️</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// PRODUCT MODAL
+// ============================================================
+function openProductModal(id) {
+  const modal = document.getElementById('productModal');
+  if (id) {
+    const p = products.find(x => x.id == id);
+    if (!p) return;
+    document.getElementById('modalTitle').textContent = 'Edit Produk';
+    document.getElementById('editProductId').value = p.id;
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pCategory').value = p.category;
+    document.getElementById('pStock').value = p.stock;
+    document.getElementById('pCost').value = p.costPrice;
+    document.getElementById('pSell').value = p.sellingPrice;
+    document.getElementById('pDesc').value = p.description || '';
+  } else {
+    document.getElementById('modalTitle').textContent = 'Tambah Produk';
+    document.getElementById('editProductId').value = '';
+    document.getElementById('pName').value = '';
+    document.getElementById('pCategory').value = 'Makanan';
+    document.getElementById('pStock').value = '';
+    document.getElementById('pCost').value = '';
+    document.getElementById('pSell').value = '';
+    document.getElementById('pDesc').value = '';
+    document.getElementById('marginPreview').style.display = 'none';
+  }
+  modal.classList.add('open');
+  setTimeout(() => document.getElementById('pName').focus(), 100);
+}
+
+function closeProductModal() {
+  document.getElementById('productModal').classList.remove('open');
+}
+
+// Live margin preview
+['pCost', 'pSell'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateMarginPreview);
+});
+
+function updateMarginPreview() {
+  const cost = parseFloat(document.getElementById('pCost').value) || 0;
+  const sell = parseFloat(document.getElementById('pSell').value) || 0;
+  const prev = document.getElementById('marginPreview');
+  if (cost > 0 && sell > 0) {
+    prev.style.display = 'block';
+    const margin = sell - cost;
+    const pct = sell > 0 ? (margin / sell) * 100 : 0;
+    const color = pct >= 60 ? 'var(--green)' : pct >= 30 ? 'var(--orange)' : 'var(--red)';
+    document.getElementById('prevMarginRp').textContent = formatRp(margin);
+    document.getElementById('prevMarginRp').style.color = color;
+    document.getElementById('prevMarginPct').textContent = pct.toFixed(1) + '%';
+    document.getElementById('prevMarginPct').style.color = color;
+  } else {
+    prev.style.display = 'none';
+  }
+}
+
+function saveProduct() {
+  const id = document.getElementById('editProductId').value;
+  const name = document.getElementById('pName').value.trim();
+  const category = document.getElementById('pCategory').value;
+  const stock = parseInt(document.getElementById('pStock').value) || 0;
+  const costPrice = parseFloat(document.getElementById('pCost').value) || 0;
+  const sellingPrice = parseFloat(document.getElementById('pSell').value) || 0;
+  const description = document.getElementById('pDesc').value.trim();
+
+  if (!name) return showToast('Nama produk wajib diisi', 'error');
+  if (costPrice <= 0) return showToast('Harga modal harus lebih dari 0', 'error');
+  if (sellingPrice <= 0) return showToast('Harga jual harus lebih dari 0', 'error');
+  if (sellingPrice < costPrice) return showToast('Harga jual harus lebih dari harga modal!', 'error');
+
+  if (id) {
+    const idx = products.findIndex(p => p.id == id);
+    if (idx >= 0) {
+      products[idx] = { ...products[idx], name, category, stock, costPrice, sellingPrice, description, updatedAt: new Date().toISOString() };
+      showToast('Produk berhasil diperbarui ✅', 'success');
+    }
+  } else {
+    products.unshift({ id: Date.now(), name, category, stock, costPrice, sellingPrice, description, createdAt: new Date().toISOString() });
+    showToast('Produk berhasil ditambahkan 🎉', 'success');
+  }
+
+  saveProducts();
+  closeProductModal();
+  renderProducts();
+  renderDashboard();
+  renderAnalysis();
+}
+
+// ============================================================
+// DELETE
+// ============================================================
+function confirmDelete(id) {
+  deletePendingId = id;
+  document.getElementById('confirmModal').classList.add('open');
+}
+
+function closeConfirm() {
+  deletePendingId = null;
+  document.getElementById('confirmModal').classList.remove('open');
+}
+
+document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+  if (!deletePendingId) return;
+  products = products.filter(p => p.id != deletePendingId);
+  saveProducts();
+  closeConfirm();
+  renderProducts();
+  renderDashboard();
+  renderAnalysis();
+  showToast('Produk dihapus', 'success');
+});
+
+// ============================================================
+// ANALYSIS
+// ============================================================
+function renderAnalysis() {
+  const sorted = [...products].sort((a, b) => getMarginPct(b) - getMarginPct(a));
+  let high = 0, mid = 0, low = 0;
+
+  const tbody = document.getElementById('analysisTbody');
+  if (sorted.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">Belum ada produk untuk dianalisis</td></tr>`;
+    document.getElementById('a-high').textContent = 0;
+    document.getElementById('a-mid').textContent = 0;
+    document.getElementById('a-low').textContent = 0;
+    return;
+  }
+
+  tbody.innerHTML = sorted.map(p => {
+    const mp = getMarginPct(p);
+    if (mp >= 60) high++;
+    else if (mp >= 30) mid++;
+    else low++;
+
+    const barColor = mp >= 60 ? 'var(--green)' : mp >= 30 ? 'var(--orange)' : 'var(--red)';
+    const rec = mp < 30 ? '⬆️ Naikkan harga' : mp > 70 ? '⭐ Sangat menguntungkan' : p.stock <= 10 && mp >= 60 ? '🔄 Segera restock!' : '✅ Pertahankan';
+    const marginRp = p.sellingPrice - p.costPrice;
+
+    return `<tr>
+      <td>
+        <div style="font-weight:600">${p.name}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${getCatEmoji(p.category)} ${p.category}</div>
+      </td>
+      <td>${formatRp(p.costPrice)}</td>
+      <td>${formatRp(p.sellingPrice)}</td>
+      <td>
+        <div class="margin-bar-wrap">
+          <div class="margin-bar-bg">
+            <div class="margin-bar-fill" style="width:${Math.min(mp, 100)}%;background:${barColor}"></div>
+          </div>
+          <span style="color:${barColor};font-weight:700;font-size:13px;min-width:44px">${mp.toFixed(1)}%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">+${formatRp(marginRp)}/unit</div>
+      </td>
+      <td style="font-size:13px">${rec}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('a-high').textContent = high;
+  document.getElementById('a-mid').textContent = mid;
+  document.getElementById('a-low').textContent = low;
+}
+
+// ============================================================
+// AI STRATEGY
+// ============================================================
+function generateRecommendations() {
+  const el = document.getElementById('recommendationsList');
+  if (products.length === 0) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🤖</div><h3>Belum ada rekomendasi</h3><p>Tambahkan produk untuk mendapat rekomendasi AI.</p></div>`;
+    return;
+  }
+
+  const recs = [];
+
+  // Pricing recs
+  products.forEach(p => {
+    const mp = getMarginPct(p);
+    if (mp < 30) {
+      const adj = Math.ceil((30 - mp) / 10) * 10;
+      const newPrice = Math.ceil(p.sellingPrice * (1 + adj / 100));
+      const addProfit = (newPrice - p.sellingPrice) * p.stock;
+      recs.push({
+        type: 'pricing', typeLabel: '💰 Pricing',
+        title: `Naikkan harga "${p.name}"`,
+        desc: `Margin saat ini hanya ${mp.toFixed(1)}%. Coba naikkan harga jual ~${adj}% dari ${formatRp(p.sellingPrice)} menjadi ${formatRp(newPrice)} untuk margin yang lebih sehat.`,
+        impact: `+${formatRp(addProfit)} potensi tambahan profit`,
+        id: 'rec_p_' + p.id
+      });
+    }
+  });
+
+  // Inventory recs
+  products.forEach(p => {
+    const mp = getMarginPct(p);
+    if (p.stock > 200 && mp < 20) {
+      recs.push({
+        type: 'inventory', typeLabel: '📦 Inventory',
+        title: `Kurangi stok "${p.name}"`,
+        desc: `Stok ${p.stock} unit tapi margin hanya ${mp.toFixed(1)}%. Pertimbangkan kurangi pembelian atau naikkan harga untuk mengurangi cash yang tertahan di stok.`,
+        impact: 'Optimalkan cash flow bisnis',
+        id: 'rec_i_' + p.id
+      });
+    }
+    if (p.stock <= 5 && mp >= 50) {
+      recs.push({
+        type: 'inventory', typeLabel: '📦 Restock',
+        title: `Segera restock "${p.name}"`,
+        desc: `Stok hampir habis (${p.stock} unit) tapi margin produk ini sangat tinggi (${mp.toFixed(1)}%). Jangan sampai kehilangan potensi penjualan!`,
+        impact: `Potensi profit: ${formatRp((p.sellingPrice - p.costPrice) * 50)}/bulan`,
+        id: 'rec_r_' + p.id
+      });
+    }
+  });
+
+  // Focus strategy
+  const top3 = [...products].sort((a, b) => getMarginPct(b) - getMarginPct(a)).slice(0, 3);
+  if (top3.length > 0) {
+    recs.push({
+      type: 'focus', typeLabel: '🎯 Fokus',
+      title: `Fokus ke ${top3.length} produk bintang`,
+      desc: `Produk dengan margin tertinggi: ${top3.map(p => `"${p.name}" (${getMarginPct(p).toFixed(0)}%)`).join(', ')}. Alokasikan lebih banyak modal dan promosi ke produk-produk ini.`,
+      impact: 'Maksimalkan ROI dari modal yang ada',
+      id: 'rec_f_all'
+    });
+  }
+
+  // Bundle strategy
+  const highMargin = products.filter(p => getMarginPct(p) >= 50);
+  if (highMargin.length >= 2) {
+    recs.push({
+      type: 'bundle', typeLabel: '🎁 Bundle',
+      title: `Buat paket bundle produk unggulan`,
+      desc: `"${highMargin[0].name}" + "${highMargin[1].name}" bisa dijual sebagai paket hemat. Bundle bisa naikkan average order value 20-30% tanpa biaya tambahan.`,
+      impact: 'Naikkan avg order value +20-30%',
+      id: 'rec_b_bundle'
+    });
+  }
+
+  if (recs.length === 0) {
+    el.innerHTML = `<div style="text-align:center;padding:32px;color:var(--text-muted)"><div style="font-size:48px;margin-bottom:12px">🏆</div><div style="font-weight:700;color:var(--green)">Bisnis kamu sudah dalam kondisi prima!</div><div style="font-size:13px;margin-top:8px">Semua margin sehat, tidak ada masalah stok. Pertahankan!</div></div>`;
+    return;
+  }
+
+  el.innerHTML = recs.map(r => {
+    const typeCls = r.type === 'pricing' ? 'rec-pricing' : r.type === 'inventory' ? 'rec-inventory' : r.type === 'focus' ? 'rec-focus' : 'rec-bundle';
+    return `<div class="rec-card" id="${r.id}">
+      <div class="rec-header">
+        <div class="rec-type-badge ${typeCls}">${r.typeLabel}</div>
+      </div>
+      <div class="rec-title">${r.title}</div>
+      <div class="rec-desc" style="margin-top:8px">${r.desc}</div>
+      <div class="rec-impact">💡 ${r.impact}</div>
+      <div class="rec-actions">
+        <button class="btn btn-green btn-sm" onclick="markRecDone('${r.id}')">✅ Sudah dilakukan</button>
+        <button class="btn btn-ghost btn-sm" onclick="dismissRec('${r.id}')">✕ Abaikan</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function markRecDone(id) {
+  const el = document.getElementById(id);
+  if (el) { el.classList.add('done'); showToast('Rekomendasi ditandai selesai! 🎉', 'success'); }
+}
+
+function dismissRec(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.animation = 'none'; el.remove(); }
+}
+
+// ============================================================
+// STRATEGY PAGE TABS
+// ============================================================
+function switchStrategyTab(name, el) {
+  document.querySelectorAll('.stab').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('#strategyTabs .chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('stab-' + name).style.display = 'block';
+  if (el) el.classList.add('active');
+  if (name === 'tips') renderTips();
+  if (name === 'whatif') populateWhatIfSelect();
+  if (name === 'checklist') renderChecklist();
+  if (name === 'recs') generateRecommendations();
+}
+
+// ============================================================
+// TIPS OTOMATIS — saran kontekstual berdasarkan data produk
+// ============================================================
+function renderTips() {
+  const el = document.getElementById('tipsList');
+  if (!el) return;
+  const tips = buildTips();
+  if (tips.length === 0) {
+    el.innerHTML = '<div class="empty-state"><div class="empty-icon">💡</div><h3>Tambahkan produk dulu</h3><p>Tips akan muncul otomatis setelah kamu punya produk.</p></div>';
+    return;
+  }
+  el.innerHTML = tips.map(t => `
+    <div class="tip-card">
+      <div class="tip-icon">${t.icon}</div>
+      <div>
+        <div class="tip-title">${t.title}</div>
+        <div class="tip-desc">${t.desc}</div>
+        <span class="tip-action">→ ${t.action}</span>
+      </div>
+    </div>`).join('');
+}
+
+function buildTips() {
+  const tips = [];
+  if (products.length === 0) return tips;
+
+  const sorted = [...products].sort((a,b) => getMarginPct(b) - getMarginPct(a));
+  const lowMargin = products.filter(p => getMarginPct(p) < 30);
+  const highMargin = products.filter(p => getMarginPct(p) >= 60);
+  const lowStock = products.filter(p => p.stock <= 10);
+  const avgM = products.reduce((s,p) => s + getMarginPct(p), 0) / products.length;
+  const invVal = products.reduce((s,p) => s + p.stock * p.costPrice, 0);
+
+  // Tip 1: produk bintang
+  if (sorted.length > 0) {
+    const star = sorted[0];
+    tips.push({
+      icon: '⭐', title: `"${star.name}" adalah produk terbaikmu`,
+      desc: `Margin ${getMarginPct(star).toFixed(1)}% dan stok ${star.stock} unit. Produk ini harus jadi prioritas utama promosi dan restocking.`,
+      action: 'Fokuskan promosi ke produk ini'
+    });
+  }
+
+  // Tip 2: margin rendah
+  if (lowMargin.length > 0) {
+    tips.push({
+      icon: '⚠️', title: `${lowMargin.length} produk margin di bawah 30%`,
+      desc: `${lowMargin.map(p => `"${p.name}" (${getMarginPct(p).toFixed(0)}%)`).join(', ')}. Pertimbangkan naikkan harga atau turunkan harga modal dengan negosiasi supplier.`,
+      action: 'Review harga produk-produk ini'
+    });
+  }
+
+  // Tip 3: avg margin benchmark
+  if (avgM < 40) {
+    tips.push({
+      icon: '📊', title: `Rata-rata margin ${avgM.toFixed(1)}% — masih bisa dioptimasi`,
+      desc: `Target ideal UMKM adalah 40-60%. Kamu bisa naik dengan fokus ke produk high-margin dan kurangi produk yang tidak efisien.`,
+      action: 'Target avg margin minimal 40%'
+    });
+  } else {
+    tips.push({
+      icon: '🏆', title: `Rata-rata margin ${avgM.toFixed(1)}% — sudah bagus!`,
+      desc: `Bisnismu punya margin di atas rata-rata. Pertahankan komposisi produk sekarang dan tingkatkan volume penjualan.`,
+      action: 'Tingkatkan volume penjualan'
+    });
+  }
+
+  // Tip 4: stok rendah high margin
+  const criticalRestock = lowStock.filter(p => getMarginPct(p) >= 50);
+  if (criticalRestock.length > 0) {
+    tips.push({
+      icon: '🚨', title: `SEGERA restock ${criticalRestock.length} produk untung besar!`,
+      desc: `${criticalRestock.map(p => `"${p.name}" (stok ${p.stock}, margin ${getMarginPct(p).toFixed(0)}%)`).join(', ')}. Jangan sampai kamu kehilangan penjualan produk paling menguntungkan ini!`,
+      action: 'Order stok sekarang juga'
+    });
+  }
+
+  // Tip 5: bundle peluang
+  if (highMargin.length >= 2) {
+    tips.push({
+      icon: '🎁', title: `Buat paket bundle dari produk unggulan`,
+      desc: `"${highMargin[0].name}" + "${highMargin[1].name}" bisa dijual sebagai paket. Bundle product terbukti meningkatkan rata-rata nilai transaksi 20–30% tanpa biaya tambahan.`,
+      action: 'Coba bundle 2 produk terlaris'
+    });
+  }
+
+  // Tip 6: nilai inventaris
+  tips.push({
+    icon: '💰', title: `Nilai inventarismu saat ini ${formatRpShort(invVal)}`,
+    desc: `Total modal yang tertanam di stok barang. Pastikan produk dengan stok besar memiliki margin yang baik agar modal tidak idle.`,
+    action: 'Cek produk stok besar tapi margin rendah'
+  });
+
+  return tips;
+}
+
+// ============================================================
+// KALKULATOR WHAT-IF
+// ============================================================
+function populateWhatIfSelect() {
+  const sel = document.getElementById('wif-product');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Pilih produk —</option>' +
+    products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+  document.getElementById('wif-current').style.display = 'none';
+  document.getElementById('wif-result').style.display = 'none';
+}
+
+function updateWhatIf() {
+  const id = document.getElementById('wif-product').value;
+  const p = products.find(x => x.id == id);
+  const cur = document.getElementById('wif-current');
+  if (!p) { cur.style.display = 'none'; return; }
+  cur.style.display = 'block';
+  document.getElementById('wif-cur-cost').textContent = formatRp(p.costPrice);
+  document.getElementById('wif-cur-sell').textContent = formatRp(p.sellingPrice);
+  document.getElementById('wif-cur-margin').textContent = getMarginPct(p).toFixed(1) + '%';
+  document.getElementById('wif-cur-stock').textContent = p.stock + ' unit';
+  document.getElementById('wif-new-sell').value = p.sellingPrice;
+  document.getElementById('wif-new-cost').value = p.costPrice;
+  document.getElementById('wif-result').style.display = 'none';
+  calcWhatIf();
+}
+
+function calcWhatIf() {
+  const id = document.getElementById('wif-product').value;
+  const p = products.find(x => x.id == id);
+  if (!p) return;
+  const newSell = parseFloat(document.getElementById('wif-new-sell').value) || p.sellingPrice;
+  const newCost = parseFloat(document.getElementById('wif-new-cost').value) || p.costPrice;
+  if (newSell <= 0 || newCost <= 0) return;
+
+  const newMarginPct = ((newSell - newCost) / newSell) * 100;
+  const newMarginRp = newSell - newCost;
+  const newTotalProfit = newMarginRp * p.stock;
+  const oldTotalProfit = (p.sellingPrice - p.costPrice) * p.stock;
+  const diff = newTotalProfit - oldTotalProfit;
+
+  const rEl = document.getElementById('wif-result');
+  rEl.style.display = 'block';
+
+  const mColor = newMarginPct >= 60 ? 'var(--green)' : newMarginPct >= 30 ? 'var(--orange)' : 'var(--red)';
+  document.getElementById('wif-r-mpct').textContent = newMarginPct.toFixed(1) + '%';
+  document.getElementById('wif-r-mpct').style.color = mColor;
+  document.getElementById('wif-r-munit').textContent = formatRp(newMarginRp);
+  document.getElementById('wif-r-munit').style.color = mColor;
+  document.getElementById('wif-r-total').textContent = formatRpShort(newTotalProfit);
+  document.getElementById('wif-r-total').style.color = mColor;
+
+  const diffEl = document.getElementById('wif-r-diff');
+  diffEl.textContent = (diff >= 0 ? '+' : '') + formatRpShort(diff);
+  diffEl.style.color = diff >= 0 ? 'var(--green)' : 'var(--red)';
+
+  const verdict = document.getElementById('wif-verdict');
+  if (newMarginPct < 0) {
+    verdict.textContent = '❌ Harga jual di bawah modal — kamu rugi!';
+    verdict.style.background = 'rgba(239,68,68,0.1)';
+    verdict.style.color = 'var(--red)';
+  } else if (newMarginPct < 20) {
+    verdict.textContent = '⚠️ Margin terlalu tipis. Pertimbangkan naikkan harga.';
+    verdict.style.background = 'rgba(245,158,11,0.1)';
+    verdict.style.color = 'var(--orange)';
+  } else if (newMarginPct >= 50) {
+    verdict.textContent = '🏆 Margin sangat sehat! Harga ini sangat direkomendasikan.';
+    verdict.style.background = 'rgba(16,185,129,0.1)';
+    verdict.style.color = 'var(--green)';
+  } else {
+    verdict.textContent = '✅ Margin cukup baik. Kamu bisa lanjutkan dengan harga ini.';
+    verdict.style.background = 'rgba(59,130,246,0.1)';
+    verdict.style.color = 'var(--blue)';
+  }
+}
+
+// ============================================================
+// CHECKLIST AKSI HARIAN
+// ============================================================
+const BASE_CHECKLIST = [
+  { id: 'c1', text: 'Cek stok produk yang hampir habis', priority: 'high' },
+  { id: 'c2', text: 'Catat semua penjualan hari ini di OptimaBiz', priority: 'high' },
+  { id: 'c3', text: 'Cek margin produk baru (jika ada penambahan)', priority: 'high' },
+  { id: 'c4', text: 'Foto dan update konten produk di media sosial', priority: 'med' },
+  { id: 'c5', text: 'Balas semua pesan/order pelanggan yang masuk', priority: 'high' },
+  { id: 'c6', text: 'Review harga kompetitor untuk produk utama', priority: 'med' },
+  { id: 'c7', text: 'Cek apakah ada produk yang perlu di-restock minggu ini', priority: 'med' },
+  { id: 'c8', text: 'Hitung total pendapatan hari ini', priority: 'high' },
+  { id: 'c9', text: 'Update stok jika ada barang masuk/keluar', priority: 'med' },
+  { id: 'c10', text: 'Luangkan 10 menit untuk review strategi minggu depan', priority: 'low' },
+];
+
+function getChecklist() {
+  const today = new Date().toDateString();
+  try {
+    const saved = JSON.parse(_s('optimabiz_checklist') || '{}');
+    // Reset jika beda hari
+    if (saved.date !== today) return { date: today, checked: [] };
+    return saved;
+  } catch { return { date: today, checked: [] }; }
+}
+
+function saveChecklist(data) {
+  _s('optimabiz_checklist', JSON.stringify(data));
+}
+
+function renderChecklist() {
+  const el = document.getElementById('checklistItems');
+  if (!el) return;
+  const data = getChecklist();
+
+  // Tambahkan aksi kontekstual berdasarkan produk
+  const contextItems = [];
+  const lowStockProds = products.filter(p => p.stock <= 10 && p.stock > 0);
+  if (lowStockProds.length > 0) {
+    contextItems.push({ id: 'ctx1', text: `Segera restock: ${lowStockProds.map(p => p.name).join(', ')}`, priority: 'high' });
+  }
+  const lowMarginProds = products.filter(p => getMarginPct(p) < 25);
+  if (lowMarginProds.length > 0) {
+    contextItems.push({ id: 'ctx2', text: `Review harga untuk: ${lowMarginProds.map(p => p.name).join(', ')}`, priority: 'high' });
+  }
+
+  const allItems = [...contextItems, ...BASE_CHECKLIST];
+  const priorityLabel = { high: 'Penting', med: 'Disarankan', low: 'Opsional' };
+  const priorityCls = { high: 'cb-high', med: 'cb-med', low: 'cb-low' };
+
+  el.innerHTML = allItems.map(item => {
+    const checked = data.checked.includes(item.id);
+    return `<div class="check-item ${checked ? 'checked' : ''}" onclick="toggleCheck('${item.id}')">
+      <div class="check-box">${checked ? '✓' : ''}</div>
+      <div class="check-text">${item.text}</div>
+      <span class="check-badge ${priorityCls[item.priority]}">${priorityLabel[item.priority]}</span>
+    </div>`;
+  }).join('');
+
+  updateChecklistProgress(data.checked.length, allItems.length);
+}
+
+function toggleCheck(id) {
+  const data = getChecklist();
+  const idx = data.checked.indexOf(id);
+  if (idx >= 0) data.checked.splice(idx, 1);
+  else data.checked.push(id);
+  saveChecklist(data);
+  renderChecklist();
+}
+
+function updateChecklistProgress(done, total) {
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  const el = document.getElementById('checklistPct');
+  const bar = document.getElementById('checklistBar');
+  if (el) el.textContent = pct + '%';
+  if (bar) { bar.style.width = pct + '%'; bar.style.background = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--orange)' : 'var(--yellow)'; }
+}
+
+function resetChecklist() {
+  const today = new Date().toDateString();
+  saveChecklist({ date: today, checked: [] });
+  renderChecklist();
+  showToast('Checklist direset ✅', 'success');
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function getMarginPct(p) {
+  if (!p.sellingPrice || p.sellingPrice <= 0) return 0;
+  return ((p.sellingPrice - p.costPrice) / p.sellingPrice) * 100;
+}
+
+function formatRp(n) {
+  return 'Rp ' + Math.round(n || 0).toLocaleString('id-ID');
+}
+
+function formatRpShort(n) {
+  if (n >= 1000000000) return 'Rp ' + (n / 1000000000).toFixed(1) + 'M';
+  if (n >= 1000000) return 'Rp ' + (n / 1000000).toFixed(1) + 'jt';
+  if (n >= 1000) return 'Rp ' + (n / 1000).toFixed(0) + 'rb';
+  return formatRp(n);
+}
+
+function getCatEmoji(cat) {
+  const map = { 'Makanan': '🍱', 'Minuman': '☕', 'Fashion': '👗', 'Elektronik': '📱', 'Kecantikan': '💄', 'Kerajinan': '🎨' };
+  return map[cat] || '📦';
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ============================================================
+// PWA SERVICE WORKER
+// ============================================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Hanya register jika bukan di iframe/sandbox (misal Claude artifacts)
+    try {
+      const isInIframe = window.self !== window.top;
+      if (!isInIframe) {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => console.log('OptimaBiz SW registered, scope:', reg.scope))
+          .catch(err => console.log('SW tidak dapat didaftarkan (normal di preview):', err.message));
+      }
+    } catch(e) {
+      // Silently ignore — app tetap berjalan normal tanpa SW
+    }
+  });
+}
+
+// ============================================================
+// INIT ON LOAD
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  const session = _s(STORAGE_SESSION);
+  if (session) {
+    try {
+      currentUser = JSON.parse(session);
+      initApp();
+    } catch {
+      showScreen('landing');
+    }
+  } else {
+    showScreen('landing');
+  }
+});
+
+// Extra safety: on load hide all screens then show correct one
+window.addEventListener('load', () => {
+  document.querySelectorAll('.screen').forEach(s => {
+    if (!s.classList.contains('active')) {
+      s.style.display = 'none';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
