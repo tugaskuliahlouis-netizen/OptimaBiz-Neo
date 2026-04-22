@@ -1,77 +1,83 @@
-const CACHE_NAME = "optimabiz-v2";
+const CACHE_NAME = "optimabiz-v3";
 const BASE_URL = self.registration.scope;
 
-const urlsToCache = [
+const PRECACHE_URLS = [
   `${BASE_URL}`,
   `${BASE_URL}index.html`,
   `${BASE_URL}offline.html`,
-  `${BASE_URL}assets/style.css`,
   `${BASE_URL}manifest.json`,
   `${BASE_URL}icons/icon-192x192-A.png`,
   `${BASE_URL}icons/icon-512x512-B.png`,
 ];
 
-// Install Service Worker & simpan file ke cache
+// ── Install: cache semua aset penting ──────────────────────────
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .catch(err => console.error("Cache gagal dimuat:", err))
+      .then(cache => cache.addAll(PRECACHE_URLS))
+      .catch(err => console.warn("[SW] Pre-cache partial failure:", err))
   );
 });
 
-// Aktivasi dan hapus cache lama
+// ── Activate: hapus cache lama ──────────────────────────────────
 self.addEventListener("activate", event => {
   event.waitUntil(
     (async () => {
       const keys = await caches.keys();
       await Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            console.log("Menghapus cache lama:", key);
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => {
+            console.log("[SW] Deleting old cache:", key);
             return caches.delete(key);
-          }
-        })
+          })
       );
       await self.clients.claim();
     })()
   );
 });
 
-// Fetch event: cache-first untuk file lokal, network-first untuk API
+// ── Fetch: cache-first untuk aset lokal, network-first untuk eksternal ──
 self.addEventListener("fetch", event => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Abaikan Chrome Extension, non-GET
-  if (url.protocol.startsWith("chrome-extension")) return;
+  // Skip: non-GET, chrome-extension, API calls
   if (request.method !== "GET") return;
-
-  // Jangan intercept Anthropic API (butuh network langsung)
+  if (url.protocol.startsWith("chrome-extension")) return;
   if (url.hostname === "api.anthropic.com") return;
 
-  // File lokal (statis)
+  // Lokal: cache-first, fallback ke offline.html jika gagal
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(request).then(response => {
-        return (
-          response ||
-          fetch(request).catch(() => caches.match(`${BASE_URL}offline.html`))
-        );
+      caches.match(request).then(cached => {
+        if (cached) return cached;
+        return fetch(request)
+          .then(response => {
+            // Hanya cache jika respon valid (status 200)
+            if (response && response.status === 200 && response.type === "basic") {
+              const clone = response.clone();
+              caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+            }
+            return response;
+          })
+          .catch(() => caches.match(`${BASE_URL}offline.html`));
       })
     );
+    return;
   }
-  // Resource eksternal (CDN fonts, dsb.)
-  else {
-    event.respondWith(
-      fetch(request)
-        .then(networkResponse => {
-          const clone = networkResponse.clone();
+
+  // Eksternal (CDN fonts dll): network-first, fallback ke cache
+  event.respondWith(
+    fetch(request)
+      .then(response => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
-          return networkResponse;
-        })
-        .catch(() => caches.match(request))
-    );
-  }
+        }
+        return response;
+      })
+      .catch(() => caches.match(request))
+  );
 });
