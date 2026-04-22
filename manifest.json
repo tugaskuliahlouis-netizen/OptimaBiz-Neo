@@ -7,6 +7,7 @@
   "scope": "./",
   "display": "standalone",
   "display_override": [
+    "tabbed",
     "window-controls-overlay",
     "standalone",
     "minimal-ui"
@@ -46,6 +47,13 @@
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Analisis Margin Produk"
+    },
+    {
+      "src": "icons/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "OptimaBiz Wide View"
     }
   ],
   "shortcuts": [
@@ -63,7 +71,11 @@
       ]
     }
   ],
-  "categories": ["productivity", "business", "finance"],
+  "categories": [
+    "productivity",
+    "business",
+    "finance"
+  ],
   "launch_handler": {
     "client_mode": "focus-existing"
   },
@@ -90,8 +102,13 @@
     {
       "action": "./index.html",
       "accept": {
-        "text/csv": [".csv"],
-        "application/vnd.ms-excel": [".xls", ".xlsx"]
+        "text/csv": [
+          ".csv"
+        ],
+        "application/vnd.ms-excel": [
+          ".xls",
+          ".xlsx"
+        ]
       }
     }
   ],
@@ -119,6 +136,18 @@
           "sizes": "512x512"
         }
       ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.optimabiz.app",
+      "id": "com.optimabiz.app"
+    }
+  ],
+  "scope_extensions": [
+    {
+      "origin": "https://tugaskuliahlouis-netizen.github.io"
     }
   ]
 }
