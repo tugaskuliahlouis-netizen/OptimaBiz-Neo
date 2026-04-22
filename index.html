@@ -103,121 +103,133 @@
     .btn-sm { padding: 7px 14px; font-size: 13px; }
     .btn-lg { padding: 14px 32px; font-size: 16px; }
 
-    /* Hero */
+    /* ── LANDING NAV MOBILE ── */
+    .landing-nav { padding: 14px 16px; }
+    .brand { font-size: 20px; }
+    .nav-btns .btn { padding: 8px 14px; font-size: 13px; }
+
+    /* ── HERO ── */
     .hero {
-      padding: 64px 24px 48px;
+      padding: 40px 20px 32px;
       text-align: center;
-      max-width: 720px; margin: 0 auto;
+      width: 100%;
     }
 
     .hero-tag {
       display: inline-block; background: rgba(255,193,7,0.12);
       color: var(--yellow); border: 1px solid rgba(255,193,7,0.3);
-      padding: 6px 16px; border-radius: 100px; font-size: 13px; font-weight: 600;
-      margin-bottom: 24px; letter-spacing: 0.5px;
+      padding: 5px 14px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+      margin-bottom: 20px; letter-spacing: 0.5px;
     }
 
     .hero h1 {
       font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(32px, 8vw, 56px); line-height: 1.1;
-      letter-spacing: -1px; margin-bottom: 20px;
+      font-size: 28px; line-height: 1.15;
+      letter-spacing: -0.5px; margin-bottom: 14px;
     }
 
-    .hero h1 em {
-      font-style: normal; color: var(--yellow);
-      position: relative;
-    }
+    .hero h1 em { font-style: normal; color: var(--yellow); }
 
     .hero p {
-      font-size: 17px; color: var(--text-muted); line-height: 1.7;
-      margin-bottom: 36px; max-width: 520px; margin-left: auto; margin-right: auto;
+      font-size: 14px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 28px;
     }
 
-    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-btns {
+      display: flex; flex-direction: column;
+      gap: 10px; align-items: stretch;
+    }
 
-    /* Stats bar */
+    .hero-btns .btn { width: 100%; justify-content: center; padding: 14px 20px; font-size: 15px; }
+
+    /* ── STATS BAR ── */
     .stats-bar {
-      display: flex; gap: 0; border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border); margin: 0;
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .stat-block {
-      flex: 1; text-align: center; padding: 24px 16px;
+      text-align: center; padding: 18px 12px;
       border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .stat-block:last-child { border-right: none; }
+    .stat-block:nth-child(2), .stat-block:nth-child(4) { border-right: none; }
+    .stat-block:nth-child(3), .stat-block:nth-child(4) { border-bottom: none; }
 
     .stat-number {
-      font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800;
+      font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800;
       color: var(--yellow); display: block;
     }
+    .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
-    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-
-    /* Features */
-    .section { padding: 56px 24px; max-width: 800px; margin: 0 auto; }
+    /* ── SECTIONS ── */
+    .section { padding: 36px 20px; width: 100%; }
 
     .section-label {
-      font-size: 12px; font-weight: 600; letter-spacing: 2px;
-      color: var(--yellow); text-transform: uppercase; margin-bottom: 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      color: var(--yellow); text-transform: uppercase; margin-bottom: 8px;
     }
 
     .section-title {
-      font-family: 'Syne', sans-serif; font-size: clamp(24px, 5vw, 36px);
-      font-weight: 800; line-height: 1.2; margin-bottom: 40px;
+      font-family: 'Syne', sans-serif; font-size: 22px;
+      font-weight: 800; line-height: 1.25; margin-bottom: 24px;
     }
 
+    /* ── FEATURES GRID ── */
     .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
     .feature-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px;
+      border-radius: 14px; padding: 16px;
       transition: all 0.2s ease;
     }
 
-    .feature-card:hover { border-color: var(--yellow); transform: translateY(-3px); }
+    .feature-card:active { border-color: var(--yellow); }
 
     .feature-icon {
-      width: 48px; height: 48px; background: rgba(255,193,7,0.1);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-size: 24px; margin-bottom: 16px;
+      width: 40px; height: 40px; background: rgba(255,193,7,0.1);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 12px;
     }
 
-    .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-    .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .feature-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
-    /* How it works */
+    /* ── STEPS ── */
     .steps { display: flex; flex-direction: column; gap: 0; }
 
     .step {
-      display: flex; gap: 20px; align-items: flex-start;
-      padding: 24px 0; border-bottom: 1px solid var(--border);
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
     }
     .step:last-child { border-bottom: none; }
 
     .step-num {
-      width: 40px; height: 40px; flex-shrink: 0;
+      width: 36px; height: 36px; flex-shrink: 0;
       background: var(--yellow); color: var(--dark);
       border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
     }
 
-    .step-content h3 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 6px; }
-    .step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .step-content h3 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-    /* CTA section */
+    /* ── CTA ── */
     .cta-section {
-      margin: 0 24px 48px;
-      background: linear-gradient(135deg, rgba(255,193,7,0.12), rgba(255,193,7,0.04));
-      border: 1px solid rgba(255,193,7,0.3); border-radius: 20px;
-      padding: 48px 32px; text-align: center;
+      margin: 0 16px 48px;
+      background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,193,7,0.03));
+      border: 1px solid rgba(255,193,7,0.3); border-radius: 18px;
+      padding: 32px 20px; text-align: center;
     }
 
-    .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 12px; }
-    .cta-section p { color: var(--text-muted); margin-bottom: 28px; }
+    .cta-section h2 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .cta-section p { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; }
+    .cta-section .btn { width: 100%; justify-content: center; padding: 14px; font-size: 15px; }
 
     /* ========== AUTH ========== */
     /* ========== AUTH PAGES ========== */
@@ -573,22 +585,50 @@
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     /* ========== ANALYSIS PAGE ========== */
-    .analysis-table { width: 100%; border-collapse: collapse; }
-
+    /* ── ANALYSIS TABLE → MOBILE CARDS ── */
+    .analysis-table { width: 100%; border-collapse: collapse; display: none; }
     .analysis-table th {
-      text-align: left; padding: 10px 12px; font-size: 12px;
+      text-align: left; padding: 10px 12px; font-size: 11px;
       color: var(--text-muted); border-bottom: 1px solid var(--border);
       font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
     }
-
     .analysis-table td {
-      padding: 12px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 10px 12px; font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .analysis-table tr:last-child td { border-bottom: none; }
+
+    /* Mobile analysis cards */
+    .analysis-cards { display: flex; flex-direction: column; gap: 10px; }
+
+    .ac-card {
+      background: var(--dark3); border-radius: 12px; padding: 14px;
+      border: 1px solid var(--border);
     }
 
-    .analysis-table tr:last-child td { border-bottom: none; }
-    .analysis-table tr:hover td { background: rgba(255,193,7,0.03); }
+    .ac-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 10px;
+    }
 
-    /* Progress bar for margin */
+    .ac-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .ac-cat { font-size: 11px; color: var(--text-muted); }
+
+    .ac-prices {
+      display: flex; gap: 12px; margin-bottom: 10px;
+    }
+
+    .ac-price-item { font-size: 12px; color: var(--text-muted); }
+    .ac-price-item strong { display: block; font-size: 13px; color: var(--text); font-weight: 600; }
+
+    .ac-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .ac-bar-bg { flex: 1; height: 8px; background: var(--dark); border-radius: 4px; overflow: hidden; }
+    .ac-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+    .ac-bar-pct { font-size: 13px; font-weight: 700; min-width: 42px; text-align: right; }
+
+    .ac-rec { font-size: 12px; color: var(--text-muted); padding: 6px 10px; background: var(--card); border-radius: 6px; }
+
+    /* Progress bar for margin (kept for table) */
     .margin-bar-wrap { display: flex; align-items: center; gap: 8px; }
     .margin-bar-bg { flex: 1; height: 6px; background: var(--dark3); border-radius: 3px; overflow: hidden; }
     .margin-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
@@ -751,11 +791,36 @@
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
     /* Responsive */
-    @media (max-width: 480px) {
-      .form-row { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 30px; }
-      .hero-btns { flex-direction: column; align-items: center; }
+    /* ── TABLET & DESKTOP ── */
+    @media (min-width: 600px) {
+      .hero { padding: 64px 32px 48px; }
+      .hero h1 { font-size: 42px; }
+      .hero p { font-size: 16px; }
+      .hero-btns { flex-direction: row; justify-content: center; }
+      .hero-btns .btn { width: auto; }
+      .stats-bar { display: flex; }
+      .stat-block { border-bottom: none; }
+      .stat-block:nth-child(2), .stat-block:nth-child(4) { border-right: 1px solid var(--border); }
+      .stat-block:last-child { border-right: none; }
+      .section { padding: 56px 32px; max-width: 800px; margin: 0 auto; }
+      .section-title { font-size: 30px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .feature-card { padding: 24px; }
+      .feature-card h3 { font-size: 16px; }
+      .feature-card p { font-size: 14px; }
+      .cta-section { margin: 0 32px 56px; padding: 48px 40px; }
+      .cta-section h2 { font-size: 28px; }
+      .cta-section .btn { width: auto; }
+      .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── SMALL MOBILE ── */
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 24px; }
+      .features-grid { grid-template-columns: 1fr; }
       .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-btns .btn-ghost { display: none; }
     }
 
     /* AI Response area */
@@ -1122,39 +1187,24 @@
       <div class="page-title">Analisis Margin 📊</div>
       <div class="page-sub">Identifikasi produk paling menguntungkan</div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Distribusi Margin</div>
+      <!-- Distribusi 3 kotak -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+        <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--green)" id="a-high">0</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Tinggi<br>&gt;60%</div>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
-          <div style="flex:1;min-width:100px;background:rgba(16,185,129,0.1);border-radius:10px;padding:16px;text-align:center">
-            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--green)" id="a-high">0</div>
-            <div style="font-size:12px;color:var(--text-muted)">Margin Tinggi (&gt;60%)</div>
-          </div>
-          <div style="flex:1;min-width:100px;background:rgba(245,158,11,0.1);border-radius:10px;padding:16px;text-align:center">
-            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--orange)" id="a-mid">0</div>
-            <div style="font-size:12px;color:var(--text-muted)">Margin Sedang (30-60%)</div>
-          </div>
-          <div style="flex:1;min-width:100px;background:rgba(239,68,68,0.1);border-radius:10px;padding:16px;text-align:center">
-            <div style="font-family:Syne,sans-serif;font-size:24px;font-weight:800;color:var(--red)" id="a-low">0</div>
-            <div style="font-size:12px;color:var(--text-muted)">Margin Rendah (&lt;30%)</div>
-          </div>
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--orange)" id="a-mid">0</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Sedang<br>30-60%</div>
         </div>
-        <div style="overflow-x:auto">
-          <table class="analysis-table" id="analysisTable">
-            <thead>
-              <tr>
-                <th>Produk</th>
-                <th>H. Modal</th>
-                <th>H. Jual</th>
-                <th>Margin</th>
-                <th>Rekomendasi</th>
-              </tr>
-            </thead>
-            <tbody id="analysisTbody"></tbody>
-          </table>
+        <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-family:Syne,sans-serif;font-size:26px;font-weight:800;color:var(--red)" id="a-low">0</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Rendah<br>&lt;30%</div>
         </div>
       </div>
+
+      <!-- Mobile cards list -->
+      <div id="analysisCards" class="analysis-cards"></div>
     </div>
 
     <!-- AI STRATEGY -->
@@ -1892,43 +1942,50 @@ function renderAnalysis() {
   const sorted = [...products].sort((a, b) => getMarginPct(b) - getMarginPct(a));
   let high = 0, mid = 0, low = 0;
 
-  const tbody = document.getElementById('analysisTbody');
+  const cardsEl = document.getElementById('analysisCards');
+  if (!cardsEl) return;
+
   if (sorted.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted)">Belum ada produk untuk dianalisis</td></tr>`;
-    document.getElementById('a-high').textContent = 0;
-    document.getElementById('a-mid').textContent = 0;
-    document.getElementById('a-low').textContent = 0;
+    cardsEl.innerHTML = '<div class="empty-state"><div class="empty-icon">📊</div><h3>Belum ada produk</h3><p>Tambahkan produk untuk melihat analisis margin.</p></div>';
+    ['a-high','a-mid','a-low'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent='0'; });
     return;
   }
 
-  tbody.innerHTML = sorted.map(p => {
+  cardsEl.innerHTML = sorted.map(p => {
     const mp = getMarginPct(p);
     if (mp >= 60) high++;
     else if (mp >= 30) mid++;
     else low++;
 
     const barColor = mp >= 60 ? 'var(--green)' : mp >= 30 ? 'var(--orange)' : 'var(--red)';
-    const rec = mp < 30 ? '⬆️ Naikkan harga' : mp > 70 ? '⭐ Sangat menguntungkan' : p.stock <= 10 && mp >= 60 ? '🔄 Segera restock!' : '✅ Pertahankan';
+    const rec = mp < 30 ? '⬆️ Pertimbangkan naikkan harga'
+              : mp > 70 ? '⭐ Produk sangat menguntungkan!'
+              : p.stock <= 10 && mp >= 60 ? '🔄 Segera restock produk ini!'
+              : '✅ Margin sehat, pertahankan';
     const marginRp = p.sellingPrice - p.costPrice;
+    const cls = mp >= 60 ? 'margin-high' : mp >= 30 ? 'margin-mid' : 'margin-low';
 
-    return `<tr>
-      <td>
-        <div style="font-weight:600">${p.name}</div>
-        <div style="font-size:11px;color:var(--text-muted)">${getCatEmoji(p.category)} ${p.category}</div>
-      </td>
-      <td>${formatRp(p.costPrice)}</td>
-      <td>${formatRp(p.sellingPrice)}</td>
-      <td>
-        <div class="margin-bar-wrap">
-          <div class="margin-bar-bg">
-            <div class="margin-bar-fill" style="width:${Math.min(mp, 100)}%;background:${barColor}"></div>
-          </div>
-          <span style="color:${barColor};font-weight:700;font-size:13px;min-width:44px">${mp.toFixed(1)}%</span>
+    return `<div class="ac-card">
+      <div class="ac-top">
+        <div>
+          <div class="ac-name">${getCatEmoji(p.category)} ${p.name}</div>
+          <div class="ac-cat">${p.category} · Stok: ${p.stock} unit</div>
         </div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">+${formatRp(marginRp)}/unit</div>
-      </td>
-      <td style="font-size:13px">${rec}</td>
-    </tr>`;
+        <div class="margin-badge ${cls}">${mp.toFixed(1)}%</div>
+      </div>
+      <div class="ac-prices">
+        <div class="ac-price-item"><strong>${formatRp(p.costPrice)}</strong>Modal</div>
+        <div class="ac-price-item"><strong>${formatRp(p.sellingPrice)}</strong>Jual</div>
+        <div class="ac-price-item"><strong style="color:${barColor}">+${formatRp(marginRp)}</strong>Profit/unit</div>
+      </div>
+      <div class="ac-bar-row">
+        <div class="ac-bar-bg">
+          <div class="ac-bar-fill" style="width:${Math.min(mp,100)}%;background:${barColor}"></div>
+        </div>
+        <span class="ac-bar-pct" style="color:${barColor}">${mp.toFixed(1)}%</span>
+      </div>
+      <div class="ac-rec">${rec}</div>
+    </div>`;
   }).join('');
 
   document.getElementById('a-high').textContent = high;
